@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Persona</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        .tarjeta {
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 10px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Formulario para crear una persona</h2>
+
+    <form id="formPersona">
+        <label>Nombre: <input type="text" id="nombre" required></label><br><br>
+        <label>Apellido: <input type="text" id="apellido" required></label><br><br>
+        <label>Edad: <input type="number" id="edad" required></label><br><br>
+        <label>Ocupación: <input type="text" id="ocupacion" required></label><br><br>
+        <button type="submit">Crear Persona</button>
+    </form>
+
+    <div class="tarjeta" id="resultado"></div>
+
+    <script>
+        class Persona {
+            constructor(nombre, apellido, edad, ocupacion) {
+                this.nombre = nombre;
+                this.apellido = apellido;
+                this.edad = edad;
+                this.ocupacion = ocupacion;
+            }
+
+            estimarAnioNacimiento() {
+                return 2025 - this.edad;
+            }
+        }
+
+        document.getElementById("formPersona").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita que se recargue la página
+
+            // Obtener datos del formulario
+            const nombre = document.getElementById("nombre").value;
+            const apellido = document.getElementById("apellido").value;
+            const edad = parseInt(document.getElementById("edad").value);
+            const ocupacion = document.getElementById("ocupacion").value;
+
+            // Crear objeto persona
+            const nuevaPersona = new Persona(nombre, apellido, edad, ocupacion);
+
+            // Mostrar resultado
+            document.getElementById("resultado").innerHTML = `
+                <h3>${nuevaPersona.nombre} ${nuevaPersona.apellido}</h3>
+                <p><strong>Edad:</strong> ${nuevaPersona.edad}</p>
+                <p><strong>Ocupación:</strong> ${nuevaPersona.ocupacion}</p>
+                <p><strong>Año de nacimiento estimado:</strong> ${nuevaPersona.estimarAnioNacimiento()}</p>
+            `;
+        });
+    </script>
+
+</body>
+</html>
